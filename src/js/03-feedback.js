@@ -23,11 +23,11 @@ const onFormInput = event => {
 const onFormSubmit = event => {
   event.preventDefault();
 
-  console.log(load(FORM_STATE));
-
-  localStorage.removeItem(FORM_STATE);
+  console.log(formInput);
 
   formInput = {};
+
+  localStorage.removeItem(FORM_STATE);
 
   event.currentTarget.reset();
 };
@@ -37,9 +37,7 @@ formElement.addEventListener('submit', onFormSubmit);
 
 function restoreInputs(inputs) {
   formInput = inputs;
-  Object.keys(formInput).forEach(
-    name => (formElement[name].value = formInput[name])
-  );
+  Object.keys(inputs).forEach(name => (formElement[name].value = inputs[name]));
 }
 
 function save(key, value) {
