@@ -7,8 +7,10 @@ const iframeElement = document.querySelector('#vimeo-player');
 
 const player = new Player(iframeElement);
 
-if (localStorage.getItem(CURRENT_TIME)) {
-  restoreTime();
+const savedTime = localStorage.getItem(CURRENT_TIME);
+
+if (savedTime) {
+  restoreTime(savedTime);
 }
 
 const onTimeUpdate = event => {
@@ -21,7 +23,7 @@ const onTimeUpdate = event => {
 
 player.on('timeupdate', throttle(onTimeUpdate, 1000));
 
-function restoreTime() {
-  player.setCurrentTime(JSON.parse(localStorage.getItem(CURRENT_TIME)));
+function restoreTime(timestamp) {
+  player.setCurrentTime(JSON.parse(timestamp));
   player.play();
 }

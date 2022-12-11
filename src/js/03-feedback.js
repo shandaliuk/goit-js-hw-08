@@ -6,9 +6,10 @@ const formElement = document.querySelector('.feedback-form');
 
 let formInput = {};
 
-if (load(FORM_STATE)) {
-  formInput = load(FORM_STATE);
-  restoreInputs();
+const savedInputs = load(FORM_STATE);
+
+if (savedInputs) {
+  restoreInputs(savedInputs);
 }
 
 const onFormInput = event => {
@@ -34,7 +35,8 @@ const onFormSubmit = event => {
 formElement.addEventListener('input', throttle(onFormInput, 500));
 formElement.addEventListener('submit', onFormSubmit);
 
-function restoreInputs() {
+function restoreInputs(inputs) {
+  formInput = inputs;
   Object.keys(formInput).forEach(
     name => (formElement[name].value = formInput[name])
   );
